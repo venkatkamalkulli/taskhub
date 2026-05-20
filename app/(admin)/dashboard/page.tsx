@@ -16,6 +16,14 @@ import {
   createActivityLog,
 } from "@/services/task.service";
 
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
 interface Task {
   id: string;
   title: string;
@@ -84,6 +92,22 @@ export default function DashboardPage() {
       (task) =>
         task.status === "pending"
     ).length;
+
+  const chartData = [
+    {
+      name: "Completed",
+      value: completedTasks,
+    },
+    {
+      name: "Pending",
+      value: pendingTasks,
+    },
+  ];
+
+  const COLORS = [
+    "#22c55e",
+    "#eab308",
+  ];
 
   const filteredTasks = tasks.filter(
     (task) => {
@@ -265,6 +289,57 @@ export default function DashboardPage() {
               <h2 className="text-6xl font-extrabold mt-5 text-yellow-300">
                 {pendingTasks}
               </h2>
+
+            </div>
+
+          </div>
+
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 mb-14 shadow-2xl">
+
+            <h2 className="text-3xl font-bold mb-8">
+
+              Task Analytics
+
+            </h2>
+
+            <div className="h-[400px]">
+
+              <ResponsiveContainer
+                width="100%"
+                height="100%"
+              >
+
+                <PieChart>
+
+                  <Pie
+                    data={chartData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={140}
+                    dataKey="value"
+                    label
+                  >
+
+                    {chartData.map(
+                      (entry, index) => (
+
+                        <Cell
+                          key={index}
+                          fill={
+                            COLORS[index]
+                          }
+                        />
+
+                      )
+                    )}
+
+                  </Pie>
+
+                  <Tooltip />
+
+                </PieChart>
+
+              </ResponsiveContainer>
 
             </div>
 
