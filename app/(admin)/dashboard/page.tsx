@@ -24,6 +24,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+import toast from "react-hot-toast";
+
 interface Task {
   id: string;
   title: string;
@@ -154,7 +156,7 @@ export default function DashboardPage() {
         `Created task: ${title}`
       );
 
-      alert(
+      toast.success(
         "Task Created Successfully"
       );
 
@@ -168,15 +170,9 @@ export default function DashboardPage() {
 
       console.log(error);
 
-      if (error instanceof Error) {
-
-        alert(error.message);
-
-      } else {
-
-        alert("Unknown Error");
-
-      }
+      toast.error(
+        "Failed to create task"
+      );
     }
   }
 
@@ -192,7 +188,9 @@ export default function DashboardPage() {
         "Deleted a task"
       );
 
-      alert("Task Deleted");
+      toast.success(
+        "Task Deleted"
+      );
 
       await loadTasks();
 
@@ -200,7 +198,7 @@ export default function DashboardPage() {
 
       console.log(error);
 
-      alert(
+      toast.error(
         "Failed to delete task"
       );
     }
@@ -222,7 +220,9 @@ export default function DashboardPage() {
         `Updated task to ${status}`
       );
 
-      alert("Task Updated");
+      toast.success(
+        "Task Updated"
+      );
 
       await loadTasks();
 
@@ -230,7 +230,7 @@ export default function DashboardPage() {
 
       console.log(error);
 
-      alert(
+      toast.error(
         "Failed to update task"
       );
     }
