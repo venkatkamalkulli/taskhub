@@ -21,7 +21,7 @@ export default function LoginPage() {
       provider: "github",
       options: {
         redirectTo:
-          "http://localhost:3000",
+          "https://taskhub-two-omega.vercel.app"
       },
     });
   }
