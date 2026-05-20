@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
+
 import { useProtectedRoute } from "@/hooks/useProtectedRoute";
+
 import {
   createTask,
   getTasks,
@@ -23,8 +25,12 @@ interface Task {
 }
 
 export default function DashboardPage() {
+
   useProtectedRoute();
-  const [title, setTitle] = useState("");
+
+  const [title, setTitle] =
+    useState("");
+
   const [description, setDescription] =
     useState("");
 
@@ -218,237 +224,229 @@ export default function DashboardPage() {
 
         <main className="p-10 text-white">
 
-          <h1 className="text-5xl font-bold mb-10">
+          <h1 className="text-6xl font-extrabold mb-12 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+
             Admin Dashboard
+
           </h1>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid md:grid-cols-3 gap-8 mb-14">
 
-            <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-3xl">
+            <div className="bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300">
 
-              <h3 className="text-zinc-400 text-lg">
+              <p className="text-zinc-400 text-xl">
                 Total Tasks
-              </h3>
+              </p>
 
-              <p className="text-5xl font-bold mt-4">
+              <h2 className="text-6xl font-extrabold mt-5 text-white">
                 {totalTasks}
-              </p>
+              </h2>
 
             </div>
 
-            <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-3xl">
+            <div className="bg-gradient-to-br from-green-950 to-zinc-900 border border-green-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300">
 
-              <h3 className="text-zinc-400 text-lg">
+              <p className="text-zinc-300 text-xl">
                 Completed
-              </h3>
-
-              <p className="text-5xl font-bold mt-4 text-green-400">
-                {completedTasks}
               </p>
+
+              <h2 className="text-6xl font-extrabold mt-5 text-green-400">
+                {completedTasks}
+              </h2>
 
             </div>
 
-            <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-3xl">
+            <div className="bg-gradient-to-br from-yellow-950 to-zinc-900 border border-yellow-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300">
 
-              <h3 className="text-zinc-400 text-lg">
+              <p className="text-zinc-300 text-xl">
                 Pending
-              </h3>
-
-              <p className="text-5xl font-bold mt-4 text-yellow-400">
-                {pendingTasks}
               </p>
+
+              <h2 className="text-6xl font-extrabold mt-5 text-yellow-300">
+                {pendingTasks}
+              </h2>
 
             </div>
 
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-3xl max-w-2xl">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 mb-14 shadow-2xl">
+
+            <h2 className="text-3xl font-bold mb-8">
+
+              Create New Task
+
+            </h2>
 
             <div className="flex flex-col gap-5">
 
               <input
+                type="text"
+                placeholder="Task Title"
                 value={title}
                 onChange={(e) =>
                   setTitle(
                     e.target.value
                   )
                 }
-                placeholder="Task Title"
-                className="p-4 rounded-xl bg-zinc-800 text-white border border-zinc-700"
+                className="bg-zinc-800 border border-zinc-700 p-5 rounded-2xl outline-none text-lg"
               />
 
               <textarea
+                placeholder="Task Description"
                 value={description}
                 onChange={(e) =>
                   setDescription(
                     e.target.value
                   )
                 }
-                placeholder="Task Description"
-                className="p-4 rounded-xl bg-zinc-800 text-white border border-zinc-700"
+                className="bg-zinc-800 border border-zinc-700 p-5 rounded-2xl outline-none text-lg min-h-[140px]"
               />
 
               <input
                 type="file"
-                accept="image/*"
                 onChange={(e) => {
 
-                  const file =
-                    e.target.files?.[0];
+                  if (e.target.files?.[0]) {
 
-                  if (file) {
-                    setImage(file);
+                    setImage(
+                      e.target.files[0]
+                    );
                   }
 
                 }}
-                className="bg-zinc-800 text-white p-4 rounded-xl"
+                className="bg-zinc-800 border border-zinc-700 p-4 rounded-2xl"
               />
 
               <button
-                onClick={
-                  handleCreateTask
-                }
-                className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 rounded-xl font-bold"
+                onClick={handleCreateTask}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 py-5 rounded-2xl font-bold text-lg hover:scale-[1.02] transition"
               >
+
                 Create Task
+
               </button>
 
             </div>
 
           </div>
 
-          <div className="mt-16">
+          <div className="flex flex-col md:flex-row gap-5 mb-10">
 
-            <h2 className="text-4xl font-bold mb-8">
-              All Tasks
-            </h2>
+            <input
+              type="text"
+              placeholder="Search tasks..."
+              value={search}
+              onChange={(e) =>
+                setSearch(
+                  e.target.value
+                )
+              }
+              className="flex-1 bg-zinc-900 border border-zinc-800 p-4 rounded-2xl"
+            />
 
-            <div className="flex flex-col md:flex-row gap-5 mb-8">
+            <select
+              value={filter}
+              onChange={(e) =>
+                setFilter(
+                  e.target.value
+                )
+              }
+              className="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl"
+            >
 
-              <input
-                value={search}
-                onChange={(e) =>
-                  setSearch(
-                    e.target.value
-                  )
-                }
-                placeholder="Search tasks..."
-                className="flex-1 p-4 rounded-xl bg-zinc-800 border border-zinc-700 text-white"
-              />
+              <option value="all">
+                All Tasks
+              </option>
 
-              <select
-                value={filter}
-                onChange={(e) =>
-                  setFilter(
-                    e.target.value
-                  )
-                }
-                className="p-4 rounded-xl bg-zinc-800 border border-zinc-700 text-white"
+              <option value="pending">
+                Pending
+              </option>
+
+              <option value="completed">
+                Completed
+              </option>
+
+            </select>
+
+          </div>
+
+          <div className="grid gap-8">
+
+            {filteredTasks.map((task) => (
+
+              <div
+                key={task.id}
+                className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-xl"
               >
 
-                <option value="all">
-                  All
-                </option>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
 
-                <option value="pending">
-                  Pending
-                </option>
+                  <div>
 
-                <option value="completed">
-                  Completed
-                </option>
+                    <h2 className="text-3xl font-bold">
+                      {task.title}
+                    </h2>
 
-              </select>
+                    <p className="text-zinc-400 mt-4 text-lg">
+                      {task.description}
+                    </p>
 
-            </div>
+                    <div className="mt-5">
 
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                      <span
+                        className={`px-4 py-2 rounded-full text-sm font-bold ${
+                          task.status ===
+                          "completed"
+                            ? "bg-green-500/20 text-green-400"
+                            : "bg-yellow-500/20 text-yellow-300"
+                        }`}
+                      >
 
-              {filteredTasks.map(
-                (task) => (
+                        {task.status}
 
-                  <div
-                    key={task.id}
-                    className="bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden"
-                  >
-
-                    {task.product_image_url && (
-
-                      <img
-                        src={
-                          task.product_image_url
-                        }
-                        alt={task.title}
-                        className="w-full h-64 object-cover"
-                      />
-
-                    )}
-
-                    <div className="p-6">
-
-                      <h3 className="text-2xl font-bold">
-                        {task.title}
-                      </h3>
-
-                      <p className="text-zinc-400 mt-3">
-                        {task.description}
-                      </p>
-
-                      <div className="mt-4">
-
-                        <span className="bg-green-500/20 text-green-400 px-4 py-2 rounded-full text-sm">
-                          {task.status}
-                        </span>
-
-                      </div>
-
-                      <div className="flex flex-wrap gap-3 mt-6">
-
-                        <button
-                          onClick={() =>
-                            handleStatusUpdate(
-                              task.id,
-                              "pending"
-                            )
-                          }
-                          className="bg-yellow-500 px-4 py-2 rounded-xl"
-                        >
-                          Pending
-                        </button>
-
-                        <button
-                          onClick={() =>
-                            handleStatusUpdate(
-                              task.id,
-                              "completed"
-                            )
-                          }
-                          className="bg-green-600 px-4 py-2 rounded-xl"
-                        >
-                          Complete
-                        </button>
-
-                        <button
-                          onClick={() =>
-                            handleDeleteTask(
-                              task.id
-                            )
-                          }
-                          className="bg-red-600 px-4 py-2 rounded-xl"
-                        >
-                          Delete
-                        </button>
-
-                      </div>
+                      </span>
 
                     </div>
 
                   </div>
 
-                )
-              )}
+                  <div className="flex flex-wrap gap-4">
 
-            </div>
+                    <button
+                      onClick={() =>
+                        handleStatusUpdate(
+                          task.id,
+                          "completed"
+                        )
+                      }
+                      className="bg-green-600 hover:bg-green-700 transition px-5 py-3 rounded-2xl font-semibold"
+                    >
+
+                      Complete
+
+                    </button>
+
+                    <button
+                      onClick={() =>
+                        handleDeleteTask(
+                          task.id
+                        )
+                      }
+                      className="bg-red-600 hover:bg-red-700 transition px-5 py-3 rounded-2xl font-semibold"
+                    >
+
+                      Delete
+
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))}
 
           </div>
 
