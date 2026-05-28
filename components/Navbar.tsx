@@ -9,12 +9,26 @@ import { useRouter } from "next/navigation";
 
 import { supabase } from "@/lib/supabase";
 
+import {
+  Moon,
+  Sun,
+} from "lucide-react";
+
+import {
+  useTheme,
+} from "next-themes";
+
 export default function Navbar() {
 
   const router = useRouter();
 
   const [email, setEmail] =
     useState("");
+
+  const {
+    theme,
+    setTheme,
+  } = useTheme();
 
   useEffect(() => {
 
@@ -25,6 +39,7 @@ export default function Navbar() {
       } = await supabase.auth.getUser();
 
       if (user?.email) {
+
         setEmail(user.email);
       }
     }
@@ -42,7 +57,7 @@ export default function Navbar() {
 
   return (
 
-    <header className="border-b border-zinc-800 bg-black px-8 py-5 flex items-center justify-between">
+    <header className="border-b border-zinc-800 bg-black dark:bg-black px-8 py-5 flex items-center justify-between">
 
       <div>
 
@@ -59,14 +74,35 @@ export default function Navbar() {
         <div className="text-right">
 
           <p className="text-white font-semibold">
+
             {email}
+
           </p>
 
           <p className="text-zinc-500 text-sm">
+
             Admin User
+
           </p>
 
         </div>
+
+        <button
+          onClick={() =>
+            setTheme(
+              theme === "dark"
+                ? "light"
+                : "dark"
+            )
+          }
+          className="bg-zinc-800 hover:bg-zinc-700 transition p-3 rounded-xl text-white"
+        >
+
+          {theme === "dark"
+            ? <Sun />
+            : <Moon />}
+
+        </button>
 
         <button
           onClick={handleLogout}
