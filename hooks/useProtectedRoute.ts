@@ -27,21 +27,6 @@ export function useProtectedRoute() {
       if (!user) {
 
         router.push("/login");
-
-        return;
-      }
-
-      const adminEmails = [
-        "venkatkulli5@gmail.com",
-      ];
-
-      if (
-        !adminEmails.includes(
-          user.email || ""
-        )
-      ) {
-
-        router.push("/tasks");
       }
     }
 
