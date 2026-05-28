@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { motion } from "framer-motion";
+
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Navbar";
 
@@ -67,7 +69,6 @@ export default function DashboardPage() {
     } catch (error) {
 
       console.log(error);
-
     }
   }
 
@@ -246,7 +247,12 @@ export default function DashboardPage() {
 
         <Navbar />
 
-        <main className="p-10 text-white">
+        <motion.main
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="p-10 text-white"
+        >
 
           <h1 className="text-6xl font-extrabold mb-12 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
 
@@ -256,7 +262,12 @@ export default function DashboardPage() {
 
           <div className="grid md:grid-cols-3 gap-8 mb-14">
 
-            <div className="bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="bg-gradient-to-br from-zinc-900 to-zinc-800 border border-zinc-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300"
+            >
 
               <p className="text-zinc-400 text-xl">
                 Total Tasks
@@ -266,9 +277,14 @@ export default function DashboardPage() {
                 {totalTasks}
               </h2>
 
-            </div>
+            </motion.div>
 
-            <div className="bg-gradient-to-br from-green-950 to-zinc-900 border border-green-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-gradient-to-br from-green-950 to-zinc-900 border border-green-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300"
+            >
 
               <p className="text-zinc-300 text-xl">
                 Completed
@@ -278,9 +294,14 @@ export default function DashboardPage() {
                 {completedTasks}
               </h2>
 
-            </div>
+            </motion.div>
 
-            <div className="bg-gradient-to-br from-yellow-950 to-zinc-900 border border-yellow-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="bg-gradient-to-br from-yellow-950 to-zinc-900 border border-yellow-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300"
+            >
 
               <p className="text-zinc-300 text-xl">
                 Pending
@@ -290,11 +311,16 @@ export default function DashboardPage() {
                 {pendingTasks}
               </h2>
 
-            </div>
+            </motion.div>
 
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 mb-14 shadow-2xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7 }}
+            className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 mb-14 shadow-2xl"
+          >
 
             <h2 className="text-3xl font-bold mb-8">
 
@@ -343,9 +369,14 @@ export default function DashboardPage() {
 
             </div>
 
-          </div>
+          </motion.div>
 
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 mb-14 shadow-2xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 mb-14 shadow-2xl"
+          >
 
             <h2 className="text-3xl font-bold mb-8">
 
@@ -404,7 +435,7 @@ export default function DashboardPage() {
 
             </div>
 
-          </div>
+          </motion.div>
 
           <div className="flex flex-col md:flex-row gap-5 mb-10">
 
@@ -450,9 +481,12 @@ export default function DashboardPage() {
 
             {filteredTasks.map((task) => (
 
-              <div
+              <motion.div
                 key={task.id}
-                className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-xl"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-xl hover:scale-[1.01] transition"
               >
 
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -519,13 +553,13 @@ export default function DashboardPage() {
 
                 </div>
 
-              </div>
+              </motion.div>
 
             ))}
 
           </div>
 
-        </main>
+        </motion.main>
 
       </div>
 
