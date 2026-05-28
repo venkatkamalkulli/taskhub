@@ -3,17 +3,15 @@
 import Link from "next/link";
 
 import {
+  Menu,
+  X,
   LayoutDashboard,
   ClipboardList,
   Star,
   Activity,
-  Menu,
-  X,
 } from "lucide-react";
 
-import {
-  useState,
-} from "react";
+import { useState } from "react";
 
 export default function Sidebar() {
 
@@ -28,7 +26,7 @@ export default function Sidebar() {
         onClick={() =>
           setOpen(!open)
         }
-        className="fixed top-5 left-5 z-50 md:hidden bg-zinc-900 p-3 rounded-xl border border-zinc-700 text-white"
+        className="fixed top-5 left-5 z-50 md:hidden bg-zinc-900 text-white p-3 rounded-xl border border-zinc-700"
       >
 
         {open ? <X /> : <Menu />}
@@ -36,14 +34,14 @@ export default function Sidebar() {
       </button>
 
       <aside
-        className={`fixed md:static top-0 left-0 h-screen w-72 bg-zinc-950 border-r border-zinc-800 p-8 z-40 transform transition-transform duration-300 ${
+        className={`fixed md:static top-0 left-0 h-screen w-72 bg-zinc-950 border-r border-zinc-800 p-8 z-40 transition-transform duration-300 ${
           open
             ? "translate-x-0"
             : "-translate-x-full md:translate-x-0"
         }`}
       >
 
-        <h1 className="text-4xl font-extrabold text-white mb-14">
+        <h1 className="text-4xl font-extrabold text-white mb-12">
 
           TaskHub 🚀
 
