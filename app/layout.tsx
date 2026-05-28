@@ -12,10 +12,6 @@ import {
   Toaster,
 } from "react-hot-toast";
 
-import {
-  ThemeProvider,
-} from "@/components/ThemeProvider";
-
 const inter = Inter({
   subsets: ["latin"],
 });
@@ -36,22 +32,15 @@ export default function RootLayout({
 
   return (
 
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html lang="en">
 
       <body
         className={inter.className}
       >
 
-        <ThemeProvider>
+        <Toaster position="top-right" />
 
-          <Toaster position="top-right" />
-
-          {children}
-
-        </ThemeProvider>
+        {children}
 
       </body>
 
