@@ -479,15 +479,27 @@ export default function DashboardPage() {
 
           <div className="grid gap-8">
 
-            {filteredTasks.map((task) => (
+            {filteredTasks.map((task, index) => (
 
-              <motion.div
-                key={task.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-xl hover:scale-[1.01] transition"
-              >
+  <motion.div
+    key={task.id}
+    initial={{
+      opacity: 0,
+      y: 40,
+    }}
+    animate={{
+      opacity: 1,
+      y: 0,
+    }}
+    transition={{
+      duration: 0.5,
+      delay: index * 0.1,
+    }}
+    whileHover={{
+      scale: 1.02,
+    }}
+    className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-xl"
+  >
 
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
 
