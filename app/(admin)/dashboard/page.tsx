@@ -95,7 +95,12 @@ export default function DashboardPage() {
       (task) =>
         task.status === "pending"
     ).length;
-
+  const completionRate =
+   totalTasks > 0
+    ? Math.round(
+        (completedTasks / totalTasks) * 100
+      )
+    : 0;
   const chartData = [
     {
       name: "Completed",
@@ -260,7 +265,7 @@ export default function DashboardPage() {
 
           </h1>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-14">
+          <div className="grid md:grid-cols-4 gap-8 mb-14">
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -312,7 +317,22 @@ export default function DashboardPage() {
               </h2>
 
             </motion.div>
+            <motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.7 }}
+  className="bg-gradient-to-br from-purple-950 to-zinc-900 border border-purple-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300"
+>
 
+  <p className="text-zinc-300 text-xl">
+    Completion Rate
+  </p>
+
+  <h2 className="text-6xl font-extrabold mt-5 text-purple-400">
+    {completionRate}%
+  </h2>
+
+</motion.div>
           </div>
 
           <motion.div
