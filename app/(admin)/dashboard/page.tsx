@@ -34,8 +34,8 @@ interface Task {
   description: string;
   status: string;
   product_image_url?: string;
+  created_at?: string;
 }
-
 export default function DashboardPage() {
 
   useProtectedRoute();
@@ -101,6 +101,22 @@ export default function DashboardPage() {
         (completedTasks / totalTasks) * 100
       )
     : 0;
+    const today = new Date();
+
+const tasksToday = tasks.filter(
+  (task) => {
+
+    if (!task.created_at) return false;
+
+    const taskDate =
+      new Date(task.created_at);
+
+    return (
+      taskDate.toDateString() ===
+      today.toDateString()
+    );
+  }
+).length;
   const chartData = [
     {
       name: "Completed",
@@ -265,7 +281,7 @@ export default function DashboardPage() {
 
           </h1>
 
-          <div className="grid md:grid-cols-4 gap-8 mb-14">
+          <div className="grid md:grid-cols-5 gap-8 mb-14">
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -318,6 +334,22 @@ export default function DashboardPage() {
 
             </motion.div>
             <motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.7 }}
+  className="bg-gradient-to-br from-purple-950 to-zinc-900 border border-purple-700 rounded-3xl p-8 shadow-2xl hover:scale-105 transition duration-300"
+>
+
+  <p className="text-zinc-300 text-xl">
+    Completion Rate
+  </p>
+
+  <h2 className="text-6xl font-extrabold mt-5 text-purple-400">
+    {completionRate}%
+  </h2>
+
+</motion.div>
+<motion.div
   initial={{ opacity: 0, y: 30 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.7 }}
